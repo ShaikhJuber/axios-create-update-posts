@@ -13,8 +13,20 @@ export default function App() {
     });
   }, []);
   if (error) return `Error: ${error.message}`;
+  
+    function createPost() {
+    axios
+      .post(baseURL, {
+        title: "Hello World!",
+        body: "This is a new post."
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
+  }
   function updatePost(){
-    axios.put(`${baseURL}`,{
+    axios
+      .put(`${baseURL}`,{
       title: 'Hello User ! this is your post',
       body: 'To create and delete post easy using create and delete button !',
     })
@@ -23,7 +35,8 @@ export default function App() {
     });
   }
   function deletePost(){
-    axios.delete(`${baseURL}`)
+    axios
+      .delete(`${baseURL}`)
       .then(() => {
         alert('post deleted !');
        setData('');
@@ -34,7 +47,8 @@ export default function App() {
       <h1>Hello Users</h1>
       <p>{data.title}</p>
       <p>{data.body}</p>
-      <button onClick={updatePost}>Cretate Post</button>
+      <button onClick={createPost}>Cretate Post</button>
+      <button onClick={updatePost}>Update Post</button>
       <button onClick={deletePost}>Delete Post</button>
     </div>
   );
